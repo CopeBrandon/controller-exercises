@@ -15,10 +15,10 @@ public class HelloController {
 //        return "Hello, Spring!";
 //    }
 
-    @GetMapping("goodbye")
-    public String goodbye(){
-        return "Goodbye, Spring!";
-    }
+//    @GetMapping("goodbye")
+//    public String goodbye(){
+//        return "Goodbye, Spring!";
+//    }
 
     // Handler request of the form /hello?name=LaunchCode
 
@@ -27,19 +27,39 @@ public class HelloController {
         return "Hello, " + name + "!";
     }
 
-    @GetMapping("hello/{name}")
-    public String helloWithPathParam(@PathVariable String name){
-        return "hello, " + name + "!";
-    }
-
     @GetMapping("form")
     public String helloForm(){
         return "<html>" +
                 "<body>" +
-                "<form action='hello' method='post'>" + //submit a request to /hello
+                "<form action='langResponse' method='post'>" + //submit a request to /hello
                 "<input type='text' name='name'>" +
-                "<input type='text' name='friend'>" +
+                "<select name='lang'>" +
+                    "<option value='english'>English</option>" +
+                    "<option value='french'>French</option>" +
+                    "<option value='spanish'>Spanish</option>" +
+                    "<option value='russian'>Russian</option>" +
+                    "<option value='japanese'>Japanese</option>" +
+                    "<option value='shoshone'>Shoshone</option>" +
+                "</select>" +
                 "<input type='submit' value='Greet me!'>" +
                 "</form></body></html>";
+    }
+    @RequestMapping(method={RequestMethod.GET, RequestMethod.POST}, value="langResponse")
+    public static String createMessage(@RequestParam String name,@RequestParam String lang){
+        if(lang.equals("english")){
+            return "Hello, " + name + ".";
+        } else if(lang.equals("french")){
+            return "Bonjour, " + name + ".";
+        } else if(lang.equals("spanish")){
+            return "Hola, " + name + ".";
+        } else if(lang.equals("russian")){
+            return "Privet, " + name + ".";
+        } else if(lang.equals("japanese")){
+            return "Konnichiwa, " + name + ".";
+        } else if(lang.equals("shoshone")){
+            return "Hakaniyun, " + name + ".";
+        } else {
+            return "This didn't work";
+        }
     }
 }
